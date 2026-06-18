@@ -1,4 +1,4 @@
-# 🚀 Client Management API
+# 🚀 Gestão de Clientes API
 
 Uma API REST simples e eficiente para o cadastro e gerenciamento de clientes.
 
