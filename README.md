@@ -9,8 +9,7 @@ Uma API REST simples e eficiente para o cadastro e gerenciamento de clientes.
 * **Node.js**
 * **Express** 
 * **TypeScript** 
-* **MongoDB & Mongoose** 
-* **Dotenv**
+* **MongoDB & Mongoose**
 
 ---
 
