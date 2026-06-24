@@ -24,3 +24,14 @@ model Cliente {
 
   @@map("clientes")
 }
+
+model Livro {
+  id    String @id @default(auto()) @map("_id") @db.ObjectId
+  title String
+  author String
+  quantity Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("livros")
+}
