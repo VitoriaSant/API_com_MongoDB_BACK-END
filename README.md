@@ -7,7 +7,8 @@ Uma API REST simples e eficiente para o cadastro e gerenciamento de clientes.
 ## 🛠️ Tecnologias Utilizadas
 
 * **Node.js**
-* **Express** 
+* **Express**
+* **Prisma**
 * **TypeScript** 
 * **MongoDB & Mongoose**
 
