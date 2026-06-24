@@ -2,11 +2,12 @@ import {
   ClienteRequest,
   type ClienteRequestDTO,
 } from "../../services/clientes/Cliente";
+import CCliente from "./CCliente";
 
 const clienteRequest = new ClienteRequest();
 
 export default class ClienteController {
-  public async criar(req: any, res: any): Promise<any> {
+  public async criar(req: any, res: any): Promise<CCliente> {
     const { name, email, status } = req.body as ClienteRequestDTO;
 
     if (!name || !email || typeof status !== "boolean") {
@@ -29,7 +30,7 @@ export default class ClienteController {
     }
   }
 
-  public async listar(req: any, res: any): Promise<any> {
+  public async listar(req: any, res: any): Promise<CCliente[]> {
     try {
       const clientes = await clienteRequest.listarClientes();
       return res.status(200).json(clientes);
@@ -39,7 +40,7 @@ export default class ClienteController {
     }
   }
 
-  public async deletar(req: any, res: any): Promise<any> {
+  public async deletar(req: any, res: any): Promise<CCliente> {
     const { id } = req.params;
     try {
       await clienteRequest.deletarCliente(id);
@@ -50,7 +51,7 @@ export default class ClienteController {
     }
   }
 
-  public async atualizar(req: any, res: any): Promise<any> {
+  public async atualizar(req: any, res: any): Promise<CCliente> {
     const { id } = req.params;
     const { name, email, status } = req.body;
 
@@ -67,7 +68,7 @@ export default class ClienteController {
     }
   }
 
-  public async pesquisar(req: any, res: any): Promise<any> {
+  public async pesquisar(req: any, res: any): Promise<CCliente | null> {
     const { id } = req.params;
     try {
       const cliente = await clienteRequest.pesquisarCliente(id);

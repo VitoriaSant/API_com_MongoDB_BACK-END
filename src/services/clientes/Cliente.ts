@@ -1,4 +1,5 @@
 import prismaClient from "../../prisma";
+import type CCliente from "../../controllers/clientes/CCliente";
 
 type ClienteRequestDTO = {
   name: string;
@@ -7,15 +8,15 @@ type ClienteRequestDTO = {
 };
 
 class ClienteRequest {
-  async criarCliente(data: ClienteRequestDTO): Promise<any> {
+  async criarCliente(data: ClienteRequestDTO): Promise<CCliente> {
     return prismaClient.cliente.create({
       data,
     });
   }
-  async listarClientes(): Promise<any> {
+  async listarClientes(): Promise<CCliente[]> {
     return prismaClient.cliente.findMany();
   }
-  async deletarCliente(id: string): Promise<any> {
+  async deletarCliente(id: string): Promise<CCliente> {
     return prismaClient.cliente.delete({
       where: { id },
     });
@@ -24,13 +25,13 @@ class ClienteRequest {
   async atualizarCliente(
     id: string,
     data: Partial<ClienteRequestDTO>,
-  ): Promise<any> {
+  ): Promise<CCliente> {
     return prismaClient.cliente.update({
       where: { id },
       data,
     });
   }
-  async pesquisarCliente(id: string): Promise<any> {
+  async pesquisarCliente(id: string): Promise<CCliente | null> {
     return prismaClient.cliente.findUnique({
       where: { id },
     });
