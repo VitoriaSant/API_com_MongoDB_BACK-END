@@ -1,13 +1,14 @@
 # 🚀 Gestão de Clientes API
 
-Uma API REST simples e eficiente para o cadastro e gerenciamento de clientes.
+Uma API REST simples e eficiente para o cadastro e gerenciamento reservas de livros
 
 ---
 
 ## 🛠️ Tecnologias Utilizadas
 
 * **Node.js**
-* **Express** 
+* **Express**
+* **Prisma**
 * **TypeScript** 
 * **MongoDB & Mongoose**
 
