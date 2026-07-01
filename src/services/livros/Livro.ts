@@ -1,18 +1,13 @@
 import prismaClient from "../../prisma";
-
-type LivroRequestDTO = {
-  title: string;
-  author: string;
-  quantity: number;
-};
+import type CLivro from "./CLivro";
 
 class LivroRequest {
-  async criarLivro(data: LivroRequestDTO): Promise<any> {
+  async criarLivro(data: CLivro): Promise<CLivro> {
     return prismaClient.livro.create({
       data,
     });
   }
-  async listarLivros(): Promise<any> {
+  async listarLivros(): Promise<CLivro[]> {
     return prismaClient.livro.findMany();
   }
   async deletarLivro(id: string): Promise<any> {
@@ -20,20 +15,17 @@ class LivroRequest {
       where: { id },
     });
   }
-  async atualizarLivro(
-    id: string,
-    data: Partial<LivroRequestDTO>,
-  ): Promise<any> {
+  async atualizarLivro(id: string, data: Partial<CLivro>): Promise<CLivro> {
     return prismaClient.livro.update({
       where: { id },
       data,
     });
   }
-  async pesquisarLivro(id: string): Promise<any> {
+  async pesquisarLivro(id: string): Promise<CLivro | null> {
     return prismaClient.livro.findUnique({
       where: { id },
     });
   }
 }
 
-export { LivroRequest, type LivroRequestDTO };
+export { LivroRequest };

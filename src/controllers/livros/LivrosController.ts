@@ -1,13 +1,11 @@
-import {
-  LivroRequest,
-  type LivroRequestDTO,
-} from "../../services/livros/Livros";
+import { LivroRequest } from "../../services/livros/Livro";
+import CCLivro from "../../services/livros/CLivro";
 
 const livroRequest = new LivroRequest();
 
 export default class LivrosController {
-  public async criar(req: any, res: any): Promise<any> {
-    const { title, author, quantity } = req.body as LivroRequestDTO;
+  public async criar(req: any, res: any): Promise<void> {
+    const { title, author, quantity } = req.body as CCLivro;
 
     if (!title || !author || typeof quantity !== "number") {
       return res.status(400).json({
@@ -28,7 +26,7 @@ export default class LivrosController {
     }
   }
 
-  public async listar(req: any, res: any): Promise<any> {
+  public async listar(req: any, res: any): Promise<void> {
     try {
       const livros = await livroRequest.listarLivros();
       return res.status(200).json(livros);
@@ -38,7 +36,7 @@ export default class LivrosController {
     }
   }
 
-  public async deletar(req: any, res: any): Promise<any> {
+  public async deletar(req: any, res: any): Promise<void> {
     const { id } = req.params;
     try {
       await livroRequest.deletarLivro(id);
@@ -49,9 +47,9 @@ export default class LivrosController {
     }
   }
 
-  public async atualizar(req: any, res: any): Promise<any> {
+  public async atualizar(req: any, res: any): Promise<void> {
     const { id } = req.params;
-    const { title, author, quantity } = req.body;
+    const { title, author, quantity } = req.body as CCLivro;
     try {
       const livro = await livroRequest.atualizarLivro(id, {
         title,
@@ -65,7 +63,7 @@ export default class LivrosController {
     }
   }
 
-  public async pesquisar(req: any, res: any): Promise<any> {
+  public async pesquisar(req: any, res: any): Promise<void> {
     const { id } = req.params;
     try {
       const livro = await livroRequest.pesquisarLivro(id);
