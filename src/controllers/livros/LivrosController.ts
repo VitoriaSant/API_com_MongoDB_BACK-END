@@ -43,6 +43,15 @@ export default class LivrosController {
       return res.status(204).send();
     } catch (error: any) {
       console.error(error);
+
+      if (error.message === "LIVRO_COM_RESERVA_ATIVA") {
+        res.status(400).json({
+          error:
+            "Não é possível excluir o livro pois ele possui reservas pendentes.",
+        });
+        return;
+      }
+
       return res.status(500).json({ error: "Erro ao deletar livro." });
     }
   }
