@@ -4,11 +4,13 @@ import { Router } from "express";
 import Teste from "./controllers/teste.controller";
 import ClienteController from "./controllers/clientes/ClienteController";
 import LivrosController from "./controllers/livros/LivrosController";
+import ReservasController from "./controllers/reservas/ReservasController";
 
 const router = Router();
 const teste = new Teste();
 const clienteController = new ClienteController();
 const livrosController = new LivrosController();
+const reservasController = new ReservasController();
 
 router.get("/", teste.teste);
 
@@ -25,6 +27,13 @@ router.get("/livros/listar", livrosController.listar);
 router.delete("/livros/deletar/:id", livrosController.deletar);
 router.put("/livros/atualizar/:id", livrosController.atualizar);
 router.get("/livros/pesquisar/:id", livrosController.pesquisar);
+
+//Reservas
+router.post("/reservas/criar", reservasController.criar);
+router.get("/reservas/listar", reservasController.listar);
+router.delete("/reservas/deletar/:id", reservasController.deletar);
+router.put("/reservas/atualizar/:id", reservasController.atualizar);
+router.get("/reservas/pesquisar/:id", reservasController.pesquisar);
 
 
 export default router;
