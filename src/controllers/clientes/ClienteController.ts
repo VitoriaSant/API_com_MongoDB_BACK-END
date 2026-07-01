@@ -39,12 +39,25 @@ export default class ClienteController {
 
   public async deletar(req: any, res: any): Promise<void> {
     const { id } = req.params;
+
     try {
       await clienteRequest.deletarCliente(id);
       return res.status(204).send();
     } catch (error: any) {
       console.error(error);
-      return res.status(500).json({ error: "Erro ao deletar cliente." });
+
+      // Tratamos o erro específico que criamos no Request
+      if (error.message === "CLIENTE_COM_RESERVA_ATIVA") {
+        res.status(400).json({
+          error:
+            "Não é possível excluir o cliente pois ele possui reservas pendentes ou livros em posse.",
+        });
+        return;
+      }
+
+      // Erro genérico caso aconteça qualquer outra coisa no banco
+      res.status(500).json({ error: "Erro interno ao deletar cliente." });
+      return;
     }
   }
 

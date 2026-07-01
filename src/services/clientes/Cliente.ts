@@ -10,6 +10,19 @@ class ClienteRequest {
     return prismaClient.cliente.findMany();
   }
   async deletarCliente(id: string): Promise<void> {
+    const possuiReservaAtiva = await prismaClient.reserva.findFirst({
+      where: {
+        clienteId: id,
+        status: {
+          notIn: ["DEVOLVIDO", "CANCELADO"],
+        },
+      },
+    });
+
+    if (possuiReservaAtiva) {
+      throw new Error("CLIENTE_COM_RESERVA_ATIVA");
+    }
+
     await prismaClient.cliente.delete({
       where: { id },
     });
