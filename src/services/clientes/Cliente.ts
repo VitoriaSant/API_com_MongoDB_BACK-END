@@ -1,35 +1,29 @@
 import prismaClient from "../../prisma";
-import type CCliente from "../../controllers/clientes/CCliente";
-
-type ClienteRequestDTO = {
-  name: string;
-  email: string;
-  status: boolean;
-};
+import type CCliente from "./CCliente";
 
 class ClienteRequest {
-  async criarCliente(data: ClienteRequestDTO): Promise<CCliente> {
-    return prismaClient.cliente.create({
-      data,
-    });
+  async criarCliente(data: CCliente): Promise<CCliente> {
+    const cliente = await prismaClient.cliente.create({ data });
+    return cliente;
   }
   async listarClientes(): Promise<CCliente[]> {
     return prismaClient.cliente.findMany();
   }
-  async deletarCliente(id: string): Promise<CCliente> {
-    return prismaClient.cliente.delete({
+  async deletarCliente(id: string): Promise<void> {
+    await prismaClient.cliente.delete({
       where: { id },
     });
   }
 
   async atualizarCliente(
     id: string,
-    data: Partial<ClienteRequestDTO>,
+    data: Partial<CCliente>,
   ): Promise<CCliente> {
-    return prismaClient.cliente.update({
+    const cliente = await prismaClient.cliente.update({
       where: { id },
       data,
     });
+    return cliente;
   }
   async pesquisarCliente(id: string): Promise<CCliente | null> {
     return prismaClient.cliente.findUnique({
@@ -38,4 +32,4 @@ class ClienteRequest {
   }
 }
 
-export { ClienteRequest, type ClienteRequestDTO };
+export { ClienteRequest };
